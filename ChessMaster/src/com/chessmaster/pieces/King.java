@@ -1,21 +1,17 @@
 package com.chessmaster.pieces;
-public class King {
-	
-	public String color;
-	public int power;
-	public int id;
 
-	public int row;
-	public int col;
+public class King extends Pieces {
+	
+
 	
 	public King(String color, int row, int col)  {
-		
-		this.color  = color;
+
+		super(color, row, col);
+
 		this.power  = 6;
 		this.id 	= 5;
 
-		this.row 	= row;
-		this.col 	= col;
+
 	}
 
 	public boolean isMoveActionValid(int moveRow, int moveCol) {
@@ -31,15 +27,19 @@ public class King {
 		boolean isMoveActionValidRegardingSideways = (moveColCoeficient==0 && moveRowCoeficient == 1);
 		boolean isMoveActionValidRegardingUpwardsAndDownwards = (moveColCoeficient==1 && moveRowCoeficient == 0);
 
+		if(	isThereSomeoneBlockingTheWay(moveRow,moveCol) == false) {
+			System.out.println("Something is blocking the way.");
+			return false;
+		}
+
 		return  isMoveActionValidRegardingTheDiagonal ||
 				isMoveActionValidRegardingUpwardsAndDownwards||
 				isMoveActionValidRegardingSideways;
 
 
-
-
 	}
 
+	@Override
 	public void move(int row, int col) {
 
 		if(isMoveActionValid(row, col)) {
@@ -47,4 +47,10 @@ public class King {
 			this.row = row;
 			this.col = col;
 		}
-}}
+}
+
+	@Override
+	public void attack(int row, int col) {
+
+	}
+}

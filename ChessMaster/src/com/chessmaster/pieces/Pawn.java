@@ -1,21 +1,16 @@
 package com.chessmaster.pieces;
-public class Pawn {
+public class Pawn extends Pieces {
 	
-	public String color;
-	public int power;
-	public int id;
-	
-	public int row;
-	public int col;
+
 	
 	public Pawn(String color, int row, int col) {
-		
-		this.color  = color;
+
+		super(color, row, col);
+
 		this.power  = 1;
 		this.id 	= 1;
 		
-		this.row 	= row;
-		this.col 	= col;
+
 	}
 	
 	public boolean isMoveActionValid(int moveRow, int moveCol) {
@@ -30,7 +25,8 @@ public class Pawn {
 		return isMoveActionValidRegardingTheRow &&
 			   isMoveActionValidRegardingTheCol;
 	}
-	
+
+	@Override
 	public void move(int row, int col) {
 		
 		if(isMoveActionValid(row, col)) {
@@ -39,12 +35,11 @@ public class Pawn {
 			this.col = col;
 		}
 	}
-	
-	public void attack() {
-		
+
+	@Override
+	public void attack(int row, int col) {
+
 	}
-	
-	public void render() {
-		
-	}
+
+
 }

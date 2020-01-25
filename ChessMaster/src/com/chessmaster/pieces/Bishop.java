@@ -1,22 +1,15 @@
 package com.chessmaster.pieces;
-public class Bishop {
+public class Bishop extends Pieces {
 	
-	public String color;
-	public int power;
-	public int id;
 
-	public int row;
-	public int col;
 	
 	public Bishop(String color, int row, int col) {
-		
-		this.color  = color;
+
+		super(color, row, col);
+
 		this.power  = 5;
 		this.id 	= 2;
 
-
-		this.row 	= row;
-		this.col 	= col;
 	}
 
 
@@ -31,16 +24,30 @@ public class Bishop {
 
 		boolean isMoveActionValidRegardingTheDiagonal = (moveColCoeficient==moveRowCoeficient);
 
+		if(	isThereSomeoneBlockingTheWay(moveRow,moveCol) == false) {
+			System.out.println("Something is blocking the way.");
+			return false;
+		}
+
 
 		return isMoveActionValidRegardingTheDiagonal;
 
 	}
 
+	@Override
 	public void move(int row, int col) {
 
 		if(isMoveActionValid(row, col)) {
-
+			System.out.println("gucci");
 			this.row = row;
 			this.col = col;
+		} else {
+			System.out.println("nein");
 		}
-}}
+}
+
+	@Override
+	public void attack(int row, int col) {
+
+	}
+}

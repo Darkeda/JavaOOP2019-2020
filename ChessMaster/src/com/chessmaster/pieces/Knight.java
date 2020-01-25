@@ -1,21 +1,16 @@
 package com.chessmaster.pieces;
-public class Knight {
+public class Knight extends Pieces {
 	
-	public String color;
-	public int power;
-	public int id;
 
-	public int row;
-	public int col;
 	
 	public Knight(String color, int row, int col) {
-		
-		this.color  = color;
+
+		super(color, row, col);
+
 		this.power  = 5;
 		this.id 	= 3;
 
-		this.row 	= row;
-		this.col 	= col;
+
 	}
 
 	public boolean isMoveActionValid(int moveRow, int moveCol) {
@@ -30,11 +25,17 @@ public class Knight {
 		boolean isMoveActionValidRegardingGShapeUpwardsOrDownwards = (moveColCoeficient== 2 && moveRowCoeficient==1);
 		boolean isMoveActionValidRegardingGSideways = (moveColCoeficient== 1 && moveRowCoeficient==2);
 
+		if(	isThereSomeoneBlockingTheWay(moveRow,moveCol) == false) {
+			System.out.println("Something is blocking the way.");
+			return false;
+		}
+
 
 		return isMoveActionValidRegardingGShapeUpwardsOrDownwards||isMoveActionValidRegardingGSideways;
 
 	}
 
+	@Override
 	public void move(int row, int col) {
 
 		if(isMoveActionValid(row, col)) {
@@ -42,4 +43,10 @@ public class Knight {
 			this.row = row;
 			this.col = col;
 		}
-}}
+}
+
+	@Override
+	public void attack(int row, int col) {
+
+	}
+}

@@ -1,21 +1,16 @@
 package com.chessmaster.pieces;
-public class Queen {
+public class Queen extends Pieces {
 	
-	public String color;
-	public int power;
-	public int id;
-
-	public int row;
-	public int col;
+;
 	
 	public Queen(String color, int row, int col) {
-		
-		this.color  = color;
+
+		super(color, row, col);
+
 		this.power  = 10;
 		this.id 	= 6;
 
-		this.row 	= row;
-		this.col 	= col;
+
 	}
 	public boolean isMoveActionValid(int moveRow, int moveCol) {
 
@@ -30,16 +25,16 @@ public class Queen {
 		boolean isMoveActionValidRegardingTheRow = (moveColCoeficient == 0);
 		boolean isMoveActionValidRegardingTheCol =(moveRowCoeficient == 0);
 
+		if(	isThereSomeoneBlockingTheWay(moveRow,moveCol) == false) {
+			System.out.println("Something is blocking the way.");
+			return false;
+		}
+
 		return  isMoveActionValidRegardingTheDiagonal || isMoveActionValidRegardingTheCol
 				|| isMoveActionValidRegardingTheRow;
 
-
-
-
-
-
 	}
-
+	@Override
 	public void move(int row, int col) {
 
 		if(isMoveActionValid(row, col)) {
@@ -47,5 +42,10 @@ public class Queen {
 			this.row = row;
 			this.col = col;
 		}
+	}
+
+	@Override
+	public void attack(int row, int col) {
+
 	}
 }

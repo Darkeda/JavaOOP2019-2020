@@ -48,7 +48,7 @@ public class RookTest {
 		Rook testElement = new Rook(PieceColor.BLACK, 0, 0);
 
 		// 2. Act
-		boolean isValid = (testElement.isMoveActionValid(5, 5));
+		boolean isValid = (testElement.isMoveActionValid(4, 4));
 
 		// 3. Assert
 		String testMessage = (isValid) ? "Valid" : "Fail";
