@@ -10,12 +10,55 @@ import static com.sun.javafx.util.Utils.clamp;
 
 public abstract class Pieces {
 
-    public String color;
-    public int power;
-    public int id;
+    protected  String color;
+    protected  int power;
+    protected  int id;
+    protected  int row;
+    protected  int col;
 
-    public int row;
-    public int col;
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public abstract String getImage ();
+
+
 
     public Pieces(String color, int row, int col) {
 

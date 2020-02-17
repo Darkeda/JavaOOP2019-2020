@@ -20,8 +20,8 @@ public class CordinateXY {
     }
 
     public boolean isCoordinateValid() {
-        if ((coordinateX > 12 && coordinateX <= 0) &&
-                (coordinateY > 12 && coordinateY <= 0)) {
+        if ((coordinateX > 10 && coordinateX <= 0) &&
+                (coordinateY > 10 && coordinateY <= 0)) {
             return true;
         }
         return false;

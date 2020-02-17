@@ -1,6 +1,10 @@
 package com.chessmaster.pieces;
 
+import com.chessmaster.config.PieceColor;
+
 public class Chudaka extends Pieces implements Blastable {
+
+
 
     public Chudaka(String color, int row, int col) {
 
@@ -25,6 +29,15 @@ public class Chudaka extends Pieces implements Blastable {
     @Override
     public void blast() {
 
+    }
+
+    @Override
+    public String getImage() {
+        String filepath="";
+        if(this.color== PieceColor.WHITE){
+            filepath = "C:\\\\Users\\\\svetl\\\\Desktop\\\\Pawn.png";
+        } else { filepath = "C:\\\\Users\\\\svetl\\\\Desktop\\\\Pawn.png";}
+        return filepath;
     }
 }
 

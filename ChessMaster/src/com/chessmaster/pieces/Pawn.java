@@ -1,4 +1,7 @@
 package com.chessmaster.pieces;
+
+import com.chessmaster.config.PieceColor;
+
 public class Pawn extends Pieces {
 	
 
@@ -39,6 +42,16 @@ public class Pawn extends Pieces {
 	@Override
 	public void attack(int row, int col) {
 
+	}
+
+
+	@Override
+	public String getImage() {
+		String filepath="";
+		if(this.color== PieceColor.WHITE){
+			filepath = "resource/PawnWhite.png";
+		} else { filepath = "resource/PawnDark.png";}
+		return filepath;
 	}
 
 

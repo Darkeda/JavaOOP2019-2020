@@ -1,8 +1,14 @@
 package com.chessmaster.pieces;
-public class Bishop extends Pieces {
-	
 
-	
+import com.chessmaster.config.PieceColor;
+
+import java.awt.*;
+
+public class Bishop extends Pieces {
+
+
+
+
 	public Bishop(String color, int row, int col) {
 
 		super(color, row, col);
@@ -49,5 +55,14 @@ public class Bishop extends Pieces {
 	@Override
 	public void attack(int row, int col) {
 
+	}
+
+	@Override
+	public String getImage() {
+		String filepath="";
+		if(this.color== PieceColor.WHITE){
+			filepath ="resource/BishopWhite.png" ;
+		} else { filepath = "resource/BishopBlack.png";}
+		return filepath;
 	}
 }

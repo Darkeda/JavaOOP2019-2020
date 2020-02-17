@@ -1,14 +1,55 @@
 package com.chessmaster.manager;
 
 import com.chessmaster.config.PieceColor;
+import com.chessmaster.pieces.*;
 import com.chessmaster.pieces.Pieces;
 
 import java.util.Scanner;
 
 public class GameBoard {
 
-    public static Pieces board[][] = new Pieces[12][12];
+    public static Pieces board[][] = new Pieces[10][10];
     boolean currentPlayer = true; // true = white , false = black
+    public static boolean isClicked =false;
+
+
+    public static void init() {
+
+        initPiece(new Rook(PieceColor.BLACK, 0, 0));
+        initPiece(new Knight(PieceColor.BLACK, 0, 1));
+        initPiece(new Bishop(PieceColor.BLACK, 0, 2));
+        initPiece(new King(PieceColor.BLACK, 0, 3));
+        initPiece(new Queen(PieceColor.BLACK, 0, 4));
+
+        initPiece(new Pawn(PieceColor.BLACK, 1, 0));
+        initPiece(new Pawn(PieceColor.BLACK, 1, 1));
+        initPiece(new Pawn(PieceColor.BLACK, 1, 2));
+        initPiece(new Pawn(PieceColor.BLACK, 1, 3));
+        initPiece(new Pawn(PieceColor.BLACK, 1, 4));
+
+        initPiece(new Rook(PieceColor.WHITE, 9, 0));
+        initPiece(new Knight(PieceColor.WHITE, 9, 1));
+        initPiece(new Bishop(PieceColor.WHITE, 9, 2));
+        initPiece(new King(PieceColor.WHITE, 9, 3));
+        initPiece(new Queen(PieceColor.WHITE, 9, 4));
+
+        initPiece(new Pawn(PieceColor.WHITE, 8, 0));
+        initPiece(new Pawn(PieceColor.WHITE, 8, 1));
+        initPiece(new Pawn(PieceColor.WHITE, 8, 2));
+        initPiece(new Pawn(PieceColor.WHITE, 8, 3));
+        initPiece(new Pawn(PieceColor.WHITE, 8, 4));
+    }
+
+    public static void initPiece(Pieces piece) {
+
+        // int row = piece.row;
+        int row = piece.getRow();
+
+        // int col = piece.col;
+        int col = piece.getCol();
+
+        board[row][col] = piece;
+    }
 
 
     public static void render() {
@@ -16,7 +57,7 @@ public class GameBoard {
     }
 
     public void setPiece(Pieces piece) {
-        board[piece.row][piece.col] = piece;
+        board[piece.getRow()][piece.getCol()] = piece;
 
     }
 
@@ -45,7 +86,7 @@ public class GameBoard {
             if (board[coordinate.getCoordinateX()][coordinate.getCoordinateY()] == null) {
 
                 System.out.println("There is nothing there");
-            } else if ((board[coordinate.getCoordinateX()][coordinate.getCoordinateY()].color != currentColorOfPlayer().toString())) {
+            } else if ((board[coordinate.getCoordinateX()][coordinate.getCoordinateY()].getColor() != currentColorOfPlayer().toString())) {
                 rightColor = false;
                 System.out.println("Wrong Piece");
                 continue;

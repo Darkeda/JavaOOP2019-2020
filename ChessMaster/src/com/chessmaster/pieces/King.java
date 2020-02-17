@@ -1,5 +1,7 @@
 package com.chessmaster.pieces;
 
+import com.chessmaster.config.PieceColor;
+
 public class King extends Pieces {
 	
 
@@ -52,5 +54,14 @@ public class King extends Pieces {
 	@Override
 	public void attack(int row, int col) {
 
+	}
+
+	@Override
+	public String getImage() {
+		String filepath="";
+		if(this.color== PieceColor.WHITE){
+			filepath = "resource/KingWhite.png";
+		} else { filepath = "resource/KingDark.png";}
+		return filepath;
 	}
 }

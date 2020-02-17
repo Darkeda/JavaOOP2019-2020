@@ -1,5 +1,6 @@
 package com.chessmaster.pieces;
 
+import com.chessmaster.config.PieceColor;
 import com.chessmaster.manager.GameBoard;
 
 public class Rook extends Pieces {
@@ -59,5 +60,14 @@ public class Rook extends Pieces {
 	@Override
 	public void attack(int row, int col) {
 
+	}
+
+	@Override
+	public String getImage() {
+		String filepath="";
+		if(this.color== PieceColor.WHITE){
+			filepath = "resource/RookWhite.png";
+		} else { filepath = "resource/RookDark.png";}
+		return filepath;
 	}
 }
