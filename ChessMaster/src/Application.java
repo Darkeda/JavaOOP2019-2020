@@ -1,3 +1,4 @@
+import com.chessmaster.Visualization.GameBoardPanel;
 import com.chessmaster.config.PieceColor;
 import com.chessmaster.manager.CordinateXY;
 import com.chessmaster.manager.GameBoard;
@@ -7,6 +8,7 @@ import com.chessmaster.pieces.Pieces;
 import com.chessmaster.pieces.Rook;
 import com.chessmaster.test.*;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Application {
@@ -26,7 +28,13 @@ public class Application {
 //		System.out.println();
 //		QueenTest.run();
 
-	TestMovement.testMove();
+	//TestMovement.testMove();
 
+		GameBoard.init();
+		JFrame windowFrame = new JFrame();
+		windowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		windowFrame.setSize(518, 547);
+		windowFrame.add(new GameBoardPanel());
+		windowFrame.setVisible(true);
 	}
 }

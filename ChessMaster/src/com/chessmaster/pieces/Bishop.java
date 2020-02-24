@@ -1,6 +1,7 @@
 package com.chessmaster.pieces;
 
 import com.chessmaster.config.PieceColor;
+import com.chessmaster.manager.GameBoard;
 
 import java.awt.*;
 
@@ -31,7 +32,7 @@ public class Bishop extends Pieces {
 		boolean isMoveActionValidRegardingTheDiagonal = (moveColCoeficient==moveRowCoeficient);
 
 		if(	isThereSomeoneBlockingTheWay(moveRow,moveCol) == false) {
-			System.out.println("Something is blocking the way.");
+			//System.out.println("Something is blocking the way.");
 			return false;
 		}
 
@@ -44,11 +45,12 @@ public class Bishop extends Pieces {
 	public void move(int row, int col) {
 
 		if(isMoveActionValid(row, col)) {
-			System.out.println("gucci");
+			System.out.println("Move made");
+			GameBoard.board[row][col] = GameBoard.board[this.row][this.col];
+			GameBoard.board[this.row][this.col] = null;
 			this.row = row;
 			this.col = col;
-		} else {
-			System.out.println("nein");
+			GameBoard.initPiece(this);
 		}
 }
 
@@ -65,4 +67,35 @@ public class Bishop extends Pieces {
 		} else { filepath = "resource/BishopBlack.png";}
 		return filepath;
 	}
+
+	@Override
+	public boolean isThereSomeoneBlockingTheWay(int moveRow, int moveCol) {
+		int rowCoef = clamp(moveRow - this.row, -1, 1);
+		int colCoef = clamp(moveCol - this.col, -1, 1);
+
+		while (true) {
+
+			try{
+				if (GameBoard.board[moveRow][moveCol] != null) {
+					return false;
+				}} catch (ArrayIndexOutOfBoundsException e) {return  false;}
+
+			moveRow = moveRow - rowCoef;
+
+			moveCol = moveCol - colCoef;
+			if (moveRow == this.row && moveCol == this.col) {
+
+				break;
+			}
+			try{
+				if (GameBoard.board[moveRow][moveCol] != null) {
+					return false;
+				}} catch (ArrayIndexOutOfBoundsException e) {return  false;}
+
+
+		}
+
+		return true;
+	}
+
 }

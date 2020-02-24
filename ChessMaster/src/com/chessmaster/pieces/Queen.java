@@ -1,6 +1,7 @@
 package com.chessmaster.pieces;
 
 import com.chessmaster.config.PieceColor;
+import com.chessmaster.manager.GameBoard;
 
 public class Queen extends Pieces {
 	
@@ -29,7 +30,7 @@ public class Queen extends Pieces {
 		boolean isMoveActionValidRegardingTheCol =(moveRowCoeficient == 0);
 
 		if(	isThereSomeoneBlockingTheWay(moveRow,moveCol) == false) {
-			System.out.println("Something is blocking the way.");
+			//System.out.println("Something is blocking the way.");
 			return false;
 		}
 
@@ -41,9 +42,12 @@ public class Queen extends Pieces {
 	public void move(int row, int col) {
 
 		if(isMoveActionValid(row, col)) {
-
+			System.out.println("Move made");
+			GameBoard.board[row][col] = GameBoard.board[this.row][this.col];
+			GameBoard.board[this.row][this.col] = null;
 			this.row = row;
 			this.col = col;
+			GameBoard.initPiece(this);
 		}
 	}
 

@@ -1,6 +1,13 @@
 package com.chessmaster.manager;
 
 public class CordinateXY {
+    public void setCoordinateX(int coordinateX) {
+        this.coordinateX = coordinateX;
+    }
+
+    public void setCoordinateY(int coordinateY) {
+        this.coordinateY = coordinateY;
+    }
 
     int coordinateX;
 

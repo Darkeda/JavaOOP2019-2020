@@ -84,22 +84,30 @@ public abstract class Pieces {
         if (value >= max) return max;
         return value;
     }
-
+    public boolean isMoveActionValid(int moveRow, int moveCol){return true;};
     // Check if something is along the path
-    boolean isThereSomeoneBlockingTheWay(int moveRow, int moveCol) {
+   public boolean isThereSomeoneBlockingTheWay(int moveRow, int moveCol) {
         int rowCoef = clamp(moveRow - this.row, -1, 1);
         int colCoef = clamp(moveCol - this.col, -1, 1);
 
         while (true) {
 
+            try{
+                if (GameBoard.board[moveRow][moveCol] != null) {
+                    return false;
+                }} catch (ArrayIndexOutOfBoundsException e) {return  false;}
+
             moveRow = moveRow - rowCoef;
+
             moveCol = moveCol - colCoef;
             if (moveRow == this.row && moveCol == this.col) {
+
                 break;
             }
+            try{
             if (GameBoard.board[moveRow][moveCol] != null) {
                 return false;
-            }
+            }} catch (ArrayIndexOutOfBoundsException e) {return  false;}
 
 
         }
