@@ -43,7 +43,7 @@ public class GameBoardPanel extends JPanel {
 
                 selectedRow = y / TILE_SIDE;
                 selectedCol = x / TILE_SIDE;
-                System.out.println(selectedRow + " " + selectedCol);
+
                 updateUI();
                 attack();
                 move();

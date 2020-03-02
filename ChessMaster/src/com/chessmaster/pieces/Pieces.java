@@ -152,8 +152,7 @@ public abstract class Pieces {
 
         while (true) {
 
-            System.out.println(currentRow + " row " + moveRow);
-            System.out.println(currentCol + " col " + moveCol);
+
 
             try {
                 if (GameBoard.board[currentRow][currentCol] != null
@@ -162,8 +161,7 @@ public abstract class Pieces {
                         && currentRow == moveRow
                 ) {
 
-                    System.out.println(currentRow + " Wow row " + moveRow);
-                    System.out.println(currentCol + " Wow col " + moveCol);
+                
                     return true;
 
                 }
