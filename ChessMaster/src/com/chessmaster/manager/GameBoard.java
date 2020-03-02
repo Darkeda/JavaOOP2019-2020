@@ -12,6 +12,8 @@ public class GameBoard {
     boolean currentPlayer = true; // true = white , false = black
     public static boolean isClicked =false;
     public static CordinateXY selecedPiece;
+    public static int whitePlayerPoints = 0;
+    public static int blackPlayerPoints = 0;
 
 
     public static void init() {

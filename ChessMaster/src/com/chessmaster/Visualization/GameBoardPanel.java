@@ -16,7 +16,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-import static com.chessmaster.manager.GameBoard.board;
+import static com.chessmaster.manager.GameBoard.*;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 
 public class GameBoardPanel extends JPanel {
@@ -29,6 +29,7 @@ public class GameBoardPanel extends JPanel {
 
     private int selectedRow = -1;
     private int selectedCol = -1;
+    private boolean attackedSelected = false;
 
     public GameBoardPanel() {
 
@@ -44,6 +45,7 @@ public class GameBoardPanel extends JPanel {
                 selectedCol = x / TILE_SIDE;
                 System.out.println(selectedRow + " " + selectedCol);
                 updateUI();
+                attack();
                 move();
 
 
@@ -60,6 +62,20 @@ public class GameBoardPanel extends JPanel {
                 render(g, row, col);
             }
         }
+        g.setColor(Color.gray);
+        g.fillRect(500,25,90,250);
+        g.setColor(Color.black);
+        g.drawString("Current Player",507,50);
+        g.drawString("Black Points",505,125);
+        g.drawString(String.valueOf(blackPlayerPoints),535,150);
+        g.drawString("White Points",505,200);
+        g.drawString(String.valueOf(whitePlayerPoints),535,225);
+        if(currentPlayerColor == PieceColor.WHITE){
+            g.setColor(Color.white);
+        } else {g.setColor(Color.black);}
+
+
+        g.fillRect(525,65,25,25);
 
         //g.setColor(Color.GREEN);
         //g.fillRect(10, 10, 100, 100);
@@ -85,7 +101,7 @@ public class GameBoardPanel extends JPanel {
 
         if (isSelected) {
 
-            tileColor =  new Color(174, 215, 00, 100);
+            tileColor = new Color(174, 215, 00, 100);
             g.setColor(tileColor);
 
             g.fillRect(tileX, tileY, TILE_SIDE, TILE_SIDE);
@@ -96,6 +112,7 @@ public class GameBoardPanel extends JPanel {
         g.fillRect(tileX, tileY, TILE_SIDE, TILE_SIDE);
 
         drawFiure(g, tileX, tileY);
+
 
 
         if (selectedRow >= 0 && selectedCol >= 0 && board[selectedRow][selectedCol] != null
@@ -109,12 +126,30 @@ public class GameBoardPanel extends JPanel {
 
                 g.setColor(new Color(215, 00, 00, 150));
                 g.fillRect(tileX, tileY, TILE_SIDE, TILE_SIDE);
+
             }
 
-        }
+
+            if ((board[selectedRow][selectedCol].isThereSomethingToTake(tileY / 50, tileX / 50)
+                    && board[selectedRow][selectedCol].isAttackActionValid(tileY / 50, tileX / 50)
+
+            )
+            ) {
+                isAPieeceSelected = true;
+                currentRow = (selectedRow);
+                curretCol = selectedCol;
 
 
-    }
+                g.setColor(new Color(37, 215, 1, 150));
+                g.fillRect(tileX, tileY, TILE_SIDE, TILE_SIDE);
+
+
+            }
+
+
+        }}
+
+
 
     public void move() {
         if (isAPieeceSelected) {
@@ -123,6 +158,30 @@ public class GameBoardPanel extends JPanel {
             if (board[currentRow][curretCol].isMoveActionValid(selectedRow, selectedCol)) {
                 isAPieeceSelected = false;
                 board[currentRow][curretCol].move(selectedRow, selectedCol);
+
+                if (currentPlayerColor == PieceColor.WHITE) {
+                    currentPlayerColor = PieceColor.BLACK;
+                } else {
+                    currentPlayerColor = PieceColor.WHITE;
+                }
+
+            }
+
+        }
+    }
+
+    public void attack() {
+        if (isAPieeceSelected) {
+
+
+            if (board[currentRow][curretCol].isAttackActionValid(selectedRow, selectedCol) &&
+                    board[currentRow][curretCol].isThereSomethingToTake(selectedRow,selectedCol)
+            ) {
+                isAPieeceSelected = false;
+                if(currentPlayerColor==PieceColor.WHITE){
+                    whitePlayerPoints+=board[selectedRow][selectedCol].getPoints();
+                } else  {blackPlayerPoints+=board[selectedRow][selectedCol].getPoints();}
+                board[currentRow][curretCol].attack(selectedRow, selectedCol);
 
                 if (currentPlayerColor == PieceColor.WHITE) {
                     currentPlayerColor = PieceColor.BLACK;

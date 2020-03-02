@@ -3,6 +3,7 @@ package com.chessmaster.pieces;
 import com.chessmaster.config.PieceColor;
 import com.chessmaster.manager.CordinateXY;
 import com.chessmaster.manager.GameBoard;
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
 import java.util.Scanner;
 
@@ -10,11 +11,20 @@ import static com.sun.javafx.util.Utils.clamp;
 
 public abstract class Pieces {
 
-    protected  String color;
-    protected  int power;
-    protected  int id;
-    protected  int row;
-    protected  int col;
+    protected String color;
+    protected int power;
+    protected int id;
+    protected int row;
+    protected int col;
+    protected  int points = 10;
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
 
     public String getColor() {
         return color;
@@ -56,8 +66,7 @@ public abstract class Pieces {
         this.col = col;
     }
 
-    public abstract String getImage ();
-
+    public abstract String getImage();
 
 
     public Pieces(String color, int row, int col) {
@@ -84,18 +93,31 @@ public abstract class Pieces {
         if (value >= max) return max;
         return value;
     }
-    public boolean isMoveActionValid(int moveRow, int moveCol){return true;};
+
+    public boolean isMoveActionValid(int moveRow, int moveCol) {
+        return true;
+    }
+
+
     // Check if something is along the path
-   public boolean isThereSomeoneBlockingTheWay(int moveRow, int moveCol) {
+    public boolean isAttackActionValid(int moveRow, int moveCol) {
+        return true;
+    }
+
+
+    public boolean isThereSomeoneBlockingTheWay(int moveRow, int moveCol) {
         int rowCoef = clamp(moveRow - this.row, -1, 1);
         int colCoef = clamp(moveCol - this.col, -1, 1);
 
         while (true) {
 
-            try{
+            try {
                 if (GameBoard.board[moveRow][moveCol] != null) {
                     return false;
-                }} catch (ArrayIndexOutOfBoundsException e) {return  false;}
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return false;
+            }
 
             moveRow = moveRow - rowCoef;
 
@@ -104,15 +126,74 @@ public abstract class Pieces {
 
                 break;
             }
-            try{
-            if (GameBoard.board[moveRow][moveCol] != null) {
+            try {
+                if (GameBoard.board[moveRow][moveCol] != null) {
+                    return false;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
-            }} catch (ArrayIndexOutOfBoundsException e) {return  false;}
+            }
 
 
         }
 
         return true;
+    }
+
+
+    public boolean isThereSomethingToTake(int moveRow, int moveCol) {
+
+        int rowCoef = clamp(moveRow - this.row, -1, 1);
+        int colCoef = clamp(moveCol - this.col, -1, 1);
+
+        int currentRow = this.row;
+        int currentCol = this.col;
+
+
+        while (true) {
+
+            System.out.println(currentRow + " row " + moveRow);
+            System.out.println(currentCol + " col " + moveCol);
+
+            try {
+                if (GameBoard.board[currentRow][currentCol] != null
+                        && GameBoard.board[currentRow][currentCol].color != this.color
+                        && currentCol == moveCol
+                        && currentRow == moveRow
+                ) {
+
+                    System.out.println(currentRow + " Wow row " + moveRow);
+                    System.out.println(currentCol + " Wow col " + moveCol);
+                    return true;
+
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return false;
+            }
+
+            currentRow += rowCoef;
+
+
+            currentCol += colCoef;
+
+
+            if (currentRow > 10 || currentRow < 0 || currentCol > 10 || currentCol < 0) {
+
+                break;
+            }
+
+
+//            try {
+//                if (GameBoard.board[currentRow][currentCol] != null && GameBoard.board[currentRow][currentCol].color != this.color
+//                        && currentRow==moveRow && currentCol==moveCol ) {
+//                    return true;
+//                }
+//            } catch (ArrayIndexOutOfBoundsException e) {return  false;}
+
+
+        }
+
+        return false;
     }
 
 

@@ -33,7 +33,7 @@ public class Application {
 		GameBoard.init();
 		JFrame windowFrame = new JFrame();
 		windowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		windowFrame.setSize(518, 547);
+		windowFrame.setSize(605, 547);
 		windowFrame.add(new GameBoardPanel());
 		windowFrame.setVisible(true);
 	}
