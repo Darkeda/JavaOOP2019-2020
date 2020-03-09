@@ -2,6 +2,7 @@ import com.chessmaster.Visualization.GameBoardPanel;
 import com.chessmaster.config.PieceColor;
 import com.chessmaster.manager.CordinateXY;
 import com.chessmaster.manager.GameBoard;
+import com.chessmaster.manager.TurnManager;
 import com.chessmaster.pieces.King;
 import com.chessmaster.pieces.Pawn;
 import com.chessmaster.pieces.Pieces;
@@ -36,5 +37,9 @@ public class Application {
 		windowFrame.setSize(605, 547);
 		windowFrame.add(new GameBoardPanel());
 		windowFrame.setVisible(true);
+
+		TurnManager turn = new TurnManager();
+		turn.getCurrentBoard();
+
 	}
 }
